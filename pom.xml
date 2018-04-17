@@ -667,7 +667,7 @@
         <profile>
             <id>kafka-0.10-dev</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
                 <dependency>
@@ -686,7 +686,7 @@
         <profile>
             <id>kafka-0.10.0.1</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
                 <dependency>
