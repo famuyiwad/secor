@@ -93,6 +93,8 @@ public class Uploader {
             topicPartition.getTopic(),
             topicPartition.getPartition());
 
+        LOG.info("lockPath: {}", lockPath);
+        LOG.info("Stripped secor.zookeeper.path: {}", stripped);
         mZookeeperConnector.lock(lockPath);
         try {
             // Check if the committed offset has changed.
