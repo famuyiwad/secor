@@ -157,31 +157,24 @@ public class ZookeeperConnector {
             try {
                 zookeeper.create(prefix, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
                 LOG.info("created path {}", prefix);
-            } catch (KeeperException.NodeExistsException exception) {
+            } catch (KeeperException.NodeExistsException | KeeperException.NoAuthException exception) {
             }
         }
     }
 
     public void setCommittedOffsetCount(TopicPartition topicPartition, long count)
             throws Exception {
-        boolean createMissingParent = false;
         ZooKeeper zookeeper = mZookeeperClient.get();
         String offsetPath = getCommittedOffsetPartitionPath(topicPartition);
         LOG.info("creating missing parents for zookeeper path {}", offsetPath);
+        createMissingParents(offsetPath);
         byte[] data = Long.toString(count).getBytes();
-        if(createMissingParent){
-            createMissingParents(offsetPath);
-        }else{
-            zookeeper.create(offsetPath, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-        }
-
         try {
             LOG.info("setting zookeeper path {} value {}", offsetPath, count);
             // -1 matches any version
             zookeeper.setData(offsetPath, data, -1);
         } catch (KeeperException.NoNodeException exception) {
-            //zookeeper.create(offsetPath, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-            LOG.warn("Unable to set data for path {}, count = {}", offsetPath, count);
+            zookeeper.create(offsetPath, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         }
     }
 
