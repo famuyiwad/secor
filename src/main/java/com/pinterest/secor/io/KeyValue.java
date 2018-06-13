@@ -16,6 +16,8 @@
  */
 package com.pinterest.secor.io;
 
+import java.util.Arrays;
+
 /**
  * Generic Object used to read next message from various file reader
  * implementations
@@ -76,5 +78,15 @@ public class KeyValue {
 
 	public boolean hasTimestamp(){
 		return this.mTimestamp != -1;
+	}
+
+	@Override
+	public String toString() {
+		return "KeyValue{" +
+				"mOffset=" + mOffset +
+				", mKafkaKey=" + Arrays.toString(mKafkaKey) +
+				", mValue=" + Arrays.toString(mValue) +
+				", mTimestamp=" + mTimestamp +
+				'}';
 	}
 }
