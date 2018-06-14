@@ -85,12 +85,6 @@ public class AvroParquetFileReaderWriterFactory implements FileReaderWriterFacto
     protected GenericRecord decodeMessage(byte[] value, String topic, SpecificDatumReader<GenericRecord> reader) throws IOException {
         // Avro schema registry header format is a "Magic Byte" that equals 0 followed by a 4-byte int
         // https://docs.confluent.io/current/schema-registry/docs/serializer-formatter.html#wire-format
-        String subjectOverride = getSchemaSubjectOverride(topic);
-        if (!subjectOverride.isEmpty()) {
-            topic = subjectOverride;
-        } else if (!schemaSubjectSuffix.isEmpty()) {
-            topic += schemaSubjectSuffix;
-        }
         if (value.length > 5 && value[0] == 0) {
             return schemaRegistryClient.decodeMessage(topic, value);
         } else {
@@ -176,7 +170,11 @@ public class AvroParquetFileReaderWriterFactory implements FileReaderWriterFacto
             GenericRecord record = decodeMessage(keyValue.getValue(), topic, datumReader);
             LOG.trace("Writing record {}", record);
             if (record != null){
-                writer.write(record);
+                try {
+                    writer.write(record);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    LOG.warn("Skipping this record of Missing Timestamp field {}", record);
+                }
             }
         }
 
