@@ -173,7 +173,7 @@ public class AvroParquetFileReaderWriterFactory implements FileReaderWriterFacto
                 try {
                     writer.write(record);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    LOG.warn("Skipping this record of Missing Timestamp field {}", record);
+                    LOG.warn("Skipping this record of missing timestamp field {}", record);
                 }
             }
         }
