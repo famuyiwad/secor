@@ -16,7 +16,6 @@
  */
 package com.pinterest.secor.common;
 
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -26,11 +25,9 @@ import com.twitter.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.Option;
-import scala.collection.JavaConversions;
 import scala.collection.Map$;
 import scala.collection.immutable.List;
 import scala.collection.immutable.List$;
-import scala.collection.mutable.Buffer;
 import scala.util.matching.Regex;
 
 /**
@@ -50,14 +47,13 @@ public class OstrichAdminService {
         Duration[] defaultLatchIntervals = {Duration.apply(1, TimeUnit.MINUTES)};
         @SuppressWarnings("deprecation")
         AdminServiceFactory adminServiceFactory = new AdminServiceFactory(
-                this.mPort,
-                20,
-                List$.MODULE$.<StatsFactory>empty(),
-                Option.<String>empty(),
-                List$.MODULE$.<Regex>empty(),
-                Map$.MODULE$.<String, CustomHttpHandler>empty(),
-                JavaConversions
-                        .asScalaBuffer(Arrays.asList(defaultLatchIntervals)).toList()
+            this.mPort,
+            20,
+            List$.MODULE$.<StatsFactory>empty(),
+            Option.<String>empty(),
+            List$.MODULE$.<Regex>empty(),
+            Map$.MODULE$.<String, CustomHttpHandler>empty(),
+            List.<Duration>fromArray(defaultLatchIntervals)
         );
         RuntimeEnvironment runtimeEnvironment = new RuntimeEnvironment(this);
         adminServiceFactory.apply(runtimeEnvironment);
@@ -66,7 +62,7 @@ public class OstrichAdminService {
             properties.load(this.getClass().getResource("build.properties").openStream());
             String buildRevision = properties.getProperty("build_revision", "unknown");
             LOG.info("build.properties build_revision: {}",
-                    properties.getProperty("build_revision", "unknown"));
+                     properties.getProperty("build_revision", "unknown"));
             StatsUtil.setLabel("secor.build_revision", buildRevision);
         } catch (Throwable t) {
             LOG.error("Failed to load properties from build.properties", t);
