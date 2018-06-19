@@ -278,6 +278,11 @@
             <version>0.10.0</version>
         </dependency>
         <dependency>
+            <groupId>com.twitter</groupId>
+            <artifactId>ostrich_2.11</artifactId>
+            <version>9.8.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.twitter.common.zookeeper</groupId>
             <artifactId>lock</artifactId>
             <version>0.0.7</version>
