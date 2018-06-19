@@ -673,6 +673,11 @@
                     <artifactId>jackson-databind</artifactId>
                     <version>2.9.5</version>
                 </dependency>
+                <dependency>
+                    <groupId>com.twitter</groupId>
+                    <artifactId>ostrich_2.11</artifactId>
+                    <version>9.27.0</version>
+                </dependency>
             </dependencies>
         </profile>
         <profile>
