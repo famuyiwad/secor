@@ -675,8 +675,8 @@
                 </dependency>
                 <dependency>
                     <groupId>com.twitter</groupId>
-                    <artifactId>ostrich_2.11</artifactId>
-                    <version>9.27.0</version>
+                    <artifactId>ostrich_2.10</artifactId>
+                    <version>9.2.1</version>
                 </dependency>
             </dependencies>
         </profile>
