@@ -649,19 +649,6 @@
                     </dependency>
                 </dependencies>
             </dependencyManagement>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.kafka</groupId>
-                    <artifactId>kafka_2.10</artifactId>
-                    <version>0.10.2.0</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>slf4j-simple</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <id>kafka-0.8-dev</id>
@@ -709,25 +696,6 @@
                     <groupId>org.apache.kafka</groupId>
                     <artifactId>kafka_2.11</artifactId>
                     <version>1.0.0</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>kafka-0.10-dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.kafka</groupId>
-                    <artifactId>kafka_2.10</artifactId>
-                    <version>0.10.2.0</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>slf4j-simple</artifactId>
-                        </exclusion>
-                    </exclusions>
                 </dependency>
             </dependencies>
         </profile>
